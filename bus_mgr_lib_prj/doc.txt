@@ -1,0 +1,154 @@
+术语：
+	mgr= bus manager， 一台机器只需用一个进程运行。
+	mc = mgr connector, p 通过socket连接mgr, 在mgr进程的connector
+	ps=progress server 服务器进程
+	pc=progress client 客户端进程
+	p = ps, pc
+	shm = share memory
+	channel = ic, ocs, occ的共同抽象通道
+	ic = inner channel， 双方之间共享内存通讯
+	occ = outer channel client, 外部通道客户端，有socket
+	ocs = outer channel server, 外部通道服务器，有listenner, 
+	cs = channel server, 外部通道服务器
+	occc = outer channel client connector
+	ocsc = outer channel server	connector	
+
+	-------------ps, pc进程 --------------
+	cm = client mgr = 客户端总管理器
+	mc = mgr connector = p 通过socket连接mgr 的connector
+	bs = bus server
+	bsc = bus server connector, 管理连接bs的远程客户端connector
+	bcc = bus client connector
+
+
+shell 删共享内存指令参考：
+ipcs -m|grep $KAT_GAME_SERVER_USER|awk '{print $1}'| xargs -n 1 ipcrm -M
+删除attach为0的共享内存
+ipcs -m|grep ' 0 ' | awk '{print $1}'| xargs -n 1 ipcrm -M
+
+配置格式：
+mgr:
+	mgr port
+	[shm start key]   --动态共享内存key开始地址， 可选，不填默认用2000开始
+
+ps,pc:
+	mgr port
+	my server: addr[is_outer] ...		--我服务器, 有[is_outer]字段标识创建socket，支持外网
+	remote: addr1, addr2 ...			--我作为客户端，连服务器
+	
+--------------------------------------------------------------------------------	
+功能：
+	progress连接mgr, 用server addr做标识创建连接memory （同ip, progress svr 和 progress client连接相同memory）
+	如果对方是远程，mgr创建socket连接.
+	连接建立，根据是否本机，创建memory , socket
+	连接，初始化消息互相识别
+	通讯
+	
+	进程结束或者死机。 共享内存状态可能不完整，要删掉。 重启进程用新的建立连接
+	busmgr不能死，死了就没法了
+	删除memory前，先通知所有ps确认，再删除
+	
+	mgr能查看m状态,方便 调试
+	
+流程:
+	mgr:
+	{
+		progress 连接进来，创建对象独立管理 下面一个PS和一个PC流程
+		
+	}
+	
+	PS:																			
+	{
+		)connect mgr
+		)(mgr)mgr create socket server or no socket server
+		)(mgr)wait client connect
+		)(mgr)when client connect ok, create m, 
+		)notify PS use m.
+		)1st msg, identify client.
+		
+		)(mgr) is connect close
+		)notify ps unuse m
+		)(mgr) free m
+	}
+	
+	PC:
+	{
+		)connect mgr
+		)req connect to server
+		)(mgr)if connect ok, create m
+		)(mgr)if connect fail, repeated try
+		)notify pc use m
+		)1st msg, send client identifying.
+		
+		)(mgr) is connect close
+		)notify pc unuse m
+		)(mgr) free m
+	
+	}
+
+---------------------------------代码使用例子-------------------------------
+mgr:
+
+	#include "bus_mgr.h"
+
+	void main()
+	{
+		if (!BusMgr::Instance().Init(444))
+		{
+			LOG_ERROR("init fail");
+			return;
+		}
+		ChannelMgr::Instance().Init(2000); //可选
+		LibEventMgr::Instance().dispatch();
+	}
+
+pc an ps:
+
+	#include "bus_client_mgr.h"
+	namespace
+	{
+		const char *svr_ip1 = "192.168.141.196";
+		const unsigned short svr_port1 = 43550;
+
+		class SvrConnector : public BusServerConnector
+		{
+		public:
+		private:
+			//每次接收都是完整消息包
+			virtual void on_recv(const char* buf, size_t len)
+			{
+			}
+			virtual void on_connected()
+			{
+			}
+		};
+		class MyBusClientConnector : public BusClientConnector
+		{
+		public:
+
+		private:
+			virtual void on_recv(const char* buf, size_t len) override
+			{
+
+			}
+			virtual void on_connected()  override
+			{
+
+			}
+		};
+	}
+
+	void main()
+	{
+		LibEventMgr::Instance().Init();
+		ClientBusMgr::Instance().Init(4444);
+
+		BusServerT<SvrConnector> svr;
+		svr.Init(svr_port1, svr_ip1);
+
+		MyBusClientConnector c;
+		c.ConnectInit(344);
+
+		LibEventMgr::Instance().dispatch();
+	}
+	

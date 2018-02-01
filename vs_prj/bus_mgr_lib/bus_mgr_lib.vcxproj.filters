@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\bus_mgr_lib_prj\share_memory.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\channel.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_proto.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\channel_server.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_typedef.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_client_mgr.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_client_bc.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_client_bs.h" />
+    <ClInclude Include="..\..\bus_mgr_lib_prj\bus_mgr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\bus_mgr_lib_prj\share_memory.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\channel.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\channel_server.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\test_mgr.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\test_cm_client.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\test_cm_svr.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\bus_client_bc.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\bus_client_bs.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\bus_client_mgr.cc" />
+    <ClCompile Include="..\..\bus_mgr_lib_prj\bus_mgr.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\bus_mgr_lib_prj\doc.txt" />
+  </ItemGroup>
+</Project>
