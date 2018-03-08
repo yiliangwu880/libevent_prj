@@ -1,49 +1,5 @@
 /*
 
-	class Connect2Client : public ListenerConnector
-	{
-	public:
-
-	private:
-		virtual void on_recv(const MsgPack &msg) override
-		{
-			LOG_DEBUG("on_recv %s", &msg.data);
-			send_data(msg);
-			if (0)
-			{//some time do this destory connect
-				//BaseConnectorMgr::PostFreeConnect(this);
-			}
-		}
-		virtual void on_connected() override
-		{
-			LOG_DEBUG("on_connected");
-		}
-	};
-
-	void test1()
-	{
-		LibEventMgr::Instance().Init();
-
-		Listener<Connect2Client> listener;
-		listener.Init(server_port);
-
-		LibEventMgr::Instance().dispatch();
-	}
-	void test2()
-	{
-		class ConnectorMgr : public BaseConnectorMgr
-		{
-		private:
-		virtual ListenerConnector *CreateConnect(){...};
-
-		};
-		LibEventMgr::Instance().Init();
-		ConnectorMgr mgr;
-		Listener<> listener(mgr);
-		listener.Init(server_port);
-
-		LibEventMgr::Instance().dispatch();
-	}
 */
 
 #pragma once
@@ -75,7 +31,7 @@ class BaseConnectorMgr
 	friend class ListenerConnector;
 public:
 	virtual ~BaseConnectorMgr();
-	//马上调用释放Connector
+	//马上调用delete Connector
 	bool CloseConnect(uint64 id);
 	ListenerConnector *FindConnect(uint64 id);
 	template<class CB>
@@ -94,16 +50,11 @@ public:
 
 private:
 	virtual ListenerConnector *NewConnect() = 0; //对象必须用new构建
-	//释放post请求的connect,BaseListener对象释放前，必须调用这个释放资源
-	//void FreeAllPost();
-	//请求释放， 不会马上调用析构对象，等下次创建新accept connect前调用
-	//void PostFreeConnect(ListenerConnector *p);
 
 	ListenerConnector *CreateConnectForListener();
 
 private:
 	std::map<uint64, ListenerConnector *> m_all_connector;
-	//std::vector<ListenerConnector *> m_vpfc; //(vec post free connector)post释放的connector列表.
 };
 
 //管理listenner 接收的connector
@@ -245,8 +196,6 @@ void Listener<Connect>::listener_cb(struct evconnlistener* listener, evutil_sock
 		return;
 	}
 	Listener* pListener = (Listener*)user_data;
-	//释放post的请求connect
-	//pListener->m_cn_mgr.FreeAllPost();
 
 	ListenerConnector *clientconn = pListener->m_cn_mgr.CreateConnectForListener();
 	if (nullptr == clientconn)

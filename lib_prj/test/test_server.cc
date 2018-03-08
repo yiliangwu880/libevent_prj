@@ -44,7 +44,6 @@ namespace
 			send_data(msg);
 			if (msg.data == string("del"))
 			{//some time do this destory connect
-				//BaseConnectorMgr::PostFreeConnect(this);
 				LOG_DEBUG("req del connect");
 				FreeSelf();
 			}

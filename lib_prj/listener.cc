@@ -43,20 +43,6 @@ ListenerConnector * BaseConnectorMgr::FindConnect(uint64 id)
 }
 
 
-
-//void BaseConnectorMgr::FreeAllPost()
-//{
-//	if (m_vpfc.empty())
-//	{
-//		return;
-//	}
-//	for (const auto &v : m_vpfc)
-//	{
-//		FreeConnect(v);
-//	}
-//	m_vpfc.clear();
-//}
-
 ListenerConnector * BaseConnectorMgr::CreateConnectForListener()
 {
 	ListenerConnector *p = NewConnect();
@@ -67,15 +53,6 @@ ListenerConnector * BaseConnectorMgr::CreateConnectForListener()
 	m_all_connector[p->GetId()] = p;
 	return p;
 }
-
-//void BaseConnectorMgr::PostFreeConnect(ListenerConnector *p)
-//{
-//	if (1 != m_all_connector.erase(p->GetId()))
-//	{
-//		LOG_FATAL("free connector can't find. id=%llu", p->GetId());
-//	}
-//	m_vpfc.push_back(p);
-//}
 
 
 ListenerConnector::ListenerConnector()
