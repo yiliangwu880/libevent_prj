@@ -38,7 +38,7 @@ namespace
 	public:
 
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 			//LOG_DEBUG("on_recv %s", &msg.data);
 			send_data(msg);
@@ -49,7 +49,7 @@ namespace
 			}
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			SetEventCbLog(true);
 			//LOG_DEBUG("server on_connected");
@@ -95,14 +95,14 @@ namespace
 	public:
 
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 		//	LOG_DEBUG("on_recv %s", &msg.data);
 			send_data(msg);
 	
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			SetEventCbLog(true);
 		//	LOG_DEBUG("server on_connected");

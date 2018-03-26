@@ -82,8 +82,8 @@ public:
 	//不会触发on_disconnected了
 	bool FreeSelf();
 private:
-	virtual void on_recv(const MsgPack &msg) override = 0;
-	virtual void on_connected() override = 0;
+	virtual void OnRecv(const MsgPack &msg) override = 0;
+	virtual void OnConnected() override = 0;
 	virtual void on_disconnected() override final; //派生类不用继承这个函数,用onDisconnected处理被动断开连接
 	virtual void onDisconnected() = 0;
 
@@ -98,8 +98,8 @@ private:
 class NoUseConnector : public ListenerConnector
 {
 private:
-	virtual void on_recv(const MsgPack &msg) override{};
-	virtual void on_connected() override{};
+	virtual void OnRecv(const MsgPack &msg) override{};
+	virtual void OnConnected() override{};
 };
 
 template<class Connect = NoUseConnector>

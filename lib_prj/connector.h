@@ -52,9 +52,9 @@ class BaseConnect
 	friend class Listener;
 private:
 	//每次接收都是完整消息包
-	virtual void on_recv(const MsgPack &msg) = 0;
-	virtual void on_connected() = 0;
-	virtual void on_error(short events){};
+	virtual void OnRecv(const MsgPack &msg) = 0;
+	virtual void OnConnected() = 0;
+	virtual void OnError(short events){};
 	//删除本对象， 不会触发on_disconnected了
 	virtual void on_disconnected()=0;
 

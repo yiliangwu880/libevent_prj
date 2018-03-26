@@ -29,19 +29,19 @@ namespace
 	class MyConnectClient1 : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 			LOG_DEBUG("1 on_recv %s", &msg.data);
 		
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			LOG_DEBUG("1 on_connected, send first msg");
 			MsgPack msg;
 			Str2MsgPack("1 msg", msg);
 			send_data(msg);
 		}
-		virtual void on_error(short events) override
+		virtual void OnError(short events) override
 		{
 			LOG_DEBUG("on_error");
 		}
@@ -53,20 +53,20 @@ namespace
 	class MyConnectClient2 : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 			LOG_DEBUG("2 on_recv %s", &msg.data);
 
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			LOG_DEBUG("2 on_connected, send first msg");
 			MsgPack msg;
 			Str2MsgPack("2 msg", msg);
 			send_data(msg);
 		}
-		virtual void on_error(short events) override
+		virtual void OnError(short events) override
 		{
 			LOG_DEBUG("on_error");
 		}
@@ -147,17 +147,17 @@ namespace
 	class NewDelConnector : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			MsgPack msg;
 			Str2MsgPack("1 msg", msg);
 			send_data(msg);
 		}
-		virtual void on_error(short events) override
+		virtual void OnError(short events) override
 		{
 			LOG_DEBUG("on_error");
 		}
@@ -215,19 +215,19 @@ namespace
 	class MyConnectClientFree : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 			//LOG_DEBUG("1 on_recv %s", &msg.data);
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 		//	LOG_DEBUG("1 on_connected, send first msg");
 			MsgPack msg;
 			Str2MsgPack("free msg", msg);
 			send_data(msg);
 		}
-		virtual void on_error(short events) override
+		virtual void OnError(short events) override
 		{
 			LOG_DEBUG("on_error %d", events);
 		}
@@ -317,16 +317,16 @@ namespace
 	class MyConnectClientFail : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 			LOG_DEBUG("1 on_recv %s", &msg.data);
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			LOG_DEBUG("1 on_connected, send first msg");
 		}
-		virtual void on_error(short events) override
+		virtual void OnError(short events) override
 		{
 			LOG_DEBUG("on_error events=%d", events);
 		}

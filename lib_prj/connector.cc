@@ -73,7 +73,7 @@ bool BaseConnect::BaseAcceptInit(evutil_socket_t fd, struct sockaddr* sa)
 	bufferevent_enable(m_buf_e, EV_WRITE | EV_READ);
 
 	m_is_connect = true;
-	on_connected();
+	OnConnected();
 	return true;
 }
 
@@ -245,7 +245,7 @@ void BaseConnect::conn_read_callback(bufferevent* bev)
 
 			if (need_to_read == ret_write_len)// 接收完整
 			{	
-				on_recv(m_msg);
+				OnRecv(m_msg);
 				//重置m_msg,等下次接收新消息
 				m_msg.len = 0;
 				m_msg_write_len = 0;
@@ -261,7 +261,7 @@ void BaseConnect::conn_event_callback(bufferevent* bev, short events)
 	if (events & BEV_EVENT_CONNECTED)
 	{
 		m_is_connect = true;
-		on_connected();
+		OnConnected();
 	}
 	else
 	{
@@ -288,7 +288,7 @@ void BaseConnect::conn_event_callback(bufferevent* bev, short events)
 
 			}
 		}
-		on_error(events); 
+		OnError(events); 
 		DisConnect();
 		return; //这里本对象可能已经销毁，别再引用
 	}
