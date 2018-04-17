@@ -205,7 +205,8 @@ void BaseHttpClient::remote_read_callback(struct evhttp_request* remote_rsp, voi
 	BaseHttpClient *p = (BaseHttpClient *)arg;
 	if (remote_rsp)
 	{
-		if (remote_rsp->response_code == 200)
+		int start_num = remote_rsp->response_code / 100;
+		if (start_num != 4 && start_num !=5) //非400,500开头的
 		{
 			//LOG_DEBUG("remote_read_callback Code: %d %s", remote_rsp->response_code, remote_rsp->response_code_line);
 			//LOG_DEBUG("replay:");
