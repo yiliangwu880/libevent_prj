@@ -1,6 +1,6 @@
 整个文件夹放到linux目录，安装cmake gcc等。
 
-直接Debug目录执行：sh build.sh
+直接当前目录执行：sh clearBuild.sh
 
 完成编译
 
