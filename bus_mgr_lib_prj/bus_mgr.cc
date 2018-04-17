@@ -31,7 +31,7 @@ MgrConnector * BusMgr::FindMc(uint64 mc_id)
 
 
 
-void MgrConnector::on_recv(const MsgPack &msg_pack)
+void MgrConnector::OnRecv(const MsgPack &msg_pack)
 {
 	const BaseCmd *msg = (const BaseCmd*)(msg_pack.data);
 	switch (msg->cmd_id)
@@ -66,7 +66,7 @@ void MgrConnector::on_recv(const MsgPack &msg_pack)
 	}
 }
 
-void MgrConnector::on_connected()
+void MgrConnector::OnConnected()
 {
 
 }

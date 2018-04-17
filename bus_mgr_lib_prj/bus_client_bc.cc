@@ -82,7 +82,7 @@ bool BusClientConnector::ConnectOk(const Proto::ShareMemory &sm)
 		return false;
 	}
 	m_ps_write_key = sm.read_key; //ps write == pc read
-	on_connected();
+	OnConnected();
 	m_state = CONNECT_OK_S;
 	return true;
 }
@@ -174,7 +174,7 @@ void BusClientConnector::OnTimer()
 			LOG_ERROR("Recv error");
 			return;
 		}
-		on_recv(msg.data, msg.len);
+		OnRecv(msg.data, msg.len);
 	}
 	else if (WAIT_REQ_TRY_RECONNECT_S == m_state)//case 连接失败的情况，会进这里
 	{
@@ -219,7 +219,7 @@ void BusClientConnector::BeDisconnect()
 			LOG_ERROR("Recv error");
 			return;
 		}
-		on_recv(msg.data, msg.len);
+		OnRecv(msg.data, msg.len);
 	}
 	m_shm_queue.reset();
 	m_ps_write_key = 0;

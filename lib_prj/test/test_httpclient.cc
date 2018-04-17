@@ -93,10 +93,42 @@ namespace
 		LOG_DEBUG("========================end=====================");
 	}
 
+
+	class EtcdClient : public BaseHttpClient
+	{
+	private:
+		virtual void Reply(const char *str) override
+		{
+
+		}
+	};
 } //end namespace
 
 void test_httpclient()
 {
 	LOG_DEBUG("start test_httpclient");
 	test1();
+}
+void test_etcd()
+{
+	LOG_DEBUG("start test_etcd");
+	LibEventMgr::Instance().Init();
+
+	//EtcdClient *p = MyClient::Create<EtcdClient>();
+	////为etcd存储的键赋值 
+	////$ curl -X PUT http://127.0.0.1:2379/v2/keys/message -d value="Hello"
+	//char *data = R"value="Hello"";
+	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_PUT, 5, data);
+
+	////查询etcd某个键存储的值
+	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_GET);
+	////删除一个值
+	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_DELETE);
+	////自动在目录下创建有序键
+	//data = R"value=Job1";
+	//p->Request("http://127.0.0.1:2379/v2/keys/queue", EVHTTP_REQ_POST);
+
+	LibEventMgr::Instance().dispatch();
+
+	LOG_DEBUG("========================end=====================");
 }

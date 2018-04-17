@@ -14,13 +14,13 @@ namespace
 	public:
 
 	private:
-		virtual void on_recv(const char* buf, size_t len) override
+		virtual void OnRecv(const char* buf, size_t len) override
 		{
-			LOG_DEBUG("on_connected on_recv: %s", buf);
+			LOG_DEBUG("OnConnected OnRecv: %s", buf);
 		}
-		virtual void on_connected()  override
+		virtual void OnConnected()  override
 		{
-			LOG_DEBUG("on_connected, send abc ");
+			LOG_DEBUG("OnConnected, send abc ");
 			//PrintShmMsg();
 			Send("abc", 4);
 			PrintShmMsg();

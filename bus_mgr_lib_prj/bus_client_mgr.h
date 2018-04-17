@@ -48,8 +48,8 @@ public:
 		return send_data(pack);
 	}
 private:
-	virtual void on_recv(const MsgPack &msg_pack) override;
-	virtual void on_connected() override;
+	virtual void OnRecv(const MsgPack &msg_pack) override;
+	virtual void OnConnected() override;
 	virtual void on_disconnected();
 };
 

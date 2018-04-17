@@ -40,7 +40,7 @@ namespace
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
 		{
-			//LOG_DEBUG("on_recv %s", &msg.data);
+			//LOG_DEBUG("OnRecv %s", &msg.data);
 			send_data(msg);
 			if (msg.data == string("del"))
 			{//some time do this destory connect
@@ -52,7 +52,7 @@ namespace
 		virtual void OnConnected() override
 		{
 			SetEventCbLog(true);
-			//LOG_DEBUG("server on_connected");
+			//LOG_DEBUG("server OnConnected");
 			MsgPack msg;
 			Str2MsgPack("s", msg);
 			send_data(msg);
@@ -97,7 +97,7 @@ namespace
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
 		{
-		//	LOG_DEBUG("on_recv %s", &msg.data);
+		//	LOG_DEBUG("OnRecv %s", &msg.data);
 			send_data(msg);
 	
 
@@ -105,7 +105,7 @@ namespace
 		virtual void OnConnected() override
 		{
 			SetEventCbLog(true);
-		//	LOG_DEBUG("server on_connected");
+		//	LOG_DEBUG("server OnConnected");
 			MsgPack msg;
 			Str2MsgPack("s", msg);
 			send_data(msg);

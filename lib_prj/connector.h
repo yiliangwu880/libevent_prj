@@ -3,14 +3,14 @@
 class MyConnectClient1 : public BaseConnect
 {
 private:
-	virtual void on_recv(const MsgPack &msg) override
+	virtual void OnRecv(const MsgPack &msg) override
 	{
-		LOG_DEBUG("1 on_recv %s", &msg.data);
+		LOG_DEBUG("1 OnRecv %s", &msg.data);
 
 	}
-	virtual void on_connected() override
+	virtual void OnConnected() override
 	{
-		LOG_DEBUG("1 on_connected, send first msg");
+		LOG_DEBUG("1 OnConnected, send first msg");
 		MsgPack msg;
 		Str2MsgPack("1 msg", msg);
 		send_data(msg);

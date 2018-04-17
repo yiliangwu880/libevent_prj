@@ -95,7 +95,7 @@ void ChannelServerMgr::McRevReqRegSvr(MgrConnector &mc, const req_reg_svr *req)
 	LOG_DEBUG("rev req_reg_svr_channel_cmd, create cs ok");
 }
 
-void Ocsc::on_recv(const MsgPack &msg)
+void Ocsc::OnRecv(const MsgPack &msg)
 {
 	OuterChannelServer *channel = FindChannel();
 	if (nullptr == channel)
@@ -111,7 +111,7 @@ void Ocsc::on_recv(const MsgPack &msg)
 	channel->m_shm_queue->Send(msg.data, msg.len);
 }
 
-void Ocsc::on_connected()
+void Ocsc::OnConnected()
 {
 	//连接成功，创建channel, channel info 通知 p.
 	ChannelServer  *cs = ChannelServerMgr::Instance().FindSvr(GetSvrAddr());

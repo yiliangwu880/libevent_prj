@@ -184,7 +184,7 @@ void ClientBusMgr::RevPsDisconnect(int ps_write_key)
 }
 
 
-void MgrConnectorClient::on_recv(const MsgPack &msg_pack)
+void MgrConnectorClient::OnRecv(const MsgPack &msg_pack)
 {
 	const BaseCmd *msg = (const BaseCmd*)(msg_pack.data);
 	switch (msg->cmd_id)
@@ -259,7 +259,7 @@ void MgrConnectorClient::on_recv(const MsgPack &msg_pack)
 	}//switch (msg->cmd_id)
 }
 
-void MgrConnectorClient::on_connected()
+void MgrConnectorClient::OnConnected()
 {
 	ClientBusMgr::Instance().OnMcConnected();
 }

@@ -180,7 +180,7 @@ bool BusServerConnector::Init(const Proto::ShareMemory &sm, const sockaddr_in &a
 		m_shm_queue.reset();
 		return false;
 	}
-	on_connected();
+	OnConnected();
 	return true;
 }
 
@@ -204,7 +204,7 @@ void BusServerConnector::OnTimer()
 		return;
 	}
 	msg.len = (int)out_len;
-	on_recv(msg.data, msg.len);
+	OnRecv(msg.data, msg.len);
 }
 
 bool BusServerConnector::Send(const char* buf, size_t len)
@@ -231,7 +231,7 @@ void BusServerConnector::DoDisconnect()
 		return;
 	}
 	msg.len = (int)out_len;
-	on_recv(msg.data, msg.len);
+	OnRecv(msg.data, msg.len);
 
 	on_disconnected();
 }

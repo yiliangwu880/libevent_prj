@@ -405,7 +405,7 @@ Occc::Occc(OuterChannelClient &channel)
 {
 }
 
-void Occc::on_recv(const MsgPack &msg)
+void Occc::OnRecv(const MsgPack &msg)
 {
 	if (nullptr != m_owner_channel.m_shm_queue.get())
 	{
@@ -415,7 +415,7 @@ void Occc::on_recv(const MsgPack &msg)
 	m_owner_channel.m_shm_queue->Send(msg.data, msg.len);
 }
 
-void Occc::on_connected()
+void Occc::OnConnected()
 {
 	m_owner_channel.OnConnected();	
 }

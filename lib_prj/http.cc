@@ -128,7 +128,7 @@ BaseHttpClient::~BaseHttpClient()
 	}
 }
 
-bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned int ot_sec)
+bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned int ot_sec, const char *post_data)
 {
 	if (nullptr == url)
 	{
@@ -187,6 +187,11 @@ bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned
 	struct evkeyvalq* header = evhttp_request_get_output_headers(req);
 	evhttp_add_header(header, "Host", host);
 	evhttp_add_header(header, "Content-type", "application/json");
+
+	if (nullptr != post_data)
+	{
+		evbuffer_add(req->output_buffer, post_data, strlen(post_data));
+	}
 	// 发起http请求
 	evhttp_make_request(m_connection, req, cmd_type, uri); //调用后，m_connection管理req的释放
 	evhttp_connection_set_timeout(m_connection, ot_sec);  //设置超时

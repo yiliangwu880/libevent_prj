@@ -18,7 +18,7 @@ namespace
 		virtual void RevRequest() override
 		{
 			//const char *uri = GetUri(req);
-			//LOG_DEBUG("on_recv req, uri=%s", uri);
+			//LOG_DEBUG("OnRecv req, uri=%s", uri);
 
 			//Reply(HTTP_OK, "ok", "reply 123");
 			ReplyError(HTTP_BADMETHOD, "abc");

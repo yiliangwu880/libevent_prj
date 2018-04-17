@@ -8,11 +8,11 @@
 	class MyConnectClient1 : public BaseConnect
 	{
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
 
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
 			MsgPack msg;
 			...≥ı ºªØmsg
@@ -39,18 +39,18 @@
 	public:
 
 	private:
-		virtual void on_recv(const MsgPack &msg) override
+		virtual void OnRecv(const MsgPack &msg) override
 		{
-			LOG_DEBUG("on_recv %s", &msg.data);
+			LOG_DEBUG("OnRecv %s", &msg.data);
 			send_data(msg);
 			if (0)
 			{//some time do this destory connect
 				FreeSelf();
 			}
 		}
-		virtual void on_connected() override
+		virtual void OnConnected() override
 		{
-			LOG_DEBUG("on_connected");
+			LOG_DEBUG("OnConnected");
 		}
 		virtual void onDisconnected() override {}
 	};

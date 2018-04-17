@@ -59,7 +59,7 @@ public:
 	BaseHttpClient();
 	virtual ~BaseHttpClient();
 
-	bool Request(const char *url, evhttp_cmd_type cmd_type=EVHTTP_REQ_GET, unsigned int ot_sec = 30);
+	bool Request(const char *url, evhttp_cmd_type cmd_type = EVHTTP_REQ_GET, unsigned int ot_sec = 30, const char *post_data=nullptr);
 
 	//分配一个对象使用，连接结束会自动释放。用户代码不需要写释放语句
 	template<class MyClient>

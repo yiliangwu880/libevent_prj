@@ -46,8 +46,8 @@ public:
 	sockaddr_in GetAddr() const { return m_svr_addr; }
 	virtual void on_disconnected(){};
 	//每次接收都是完整消息包
-	virtual void on_recv(const char* buf, size_t len) = 0;
-	virtual void on_connected() = 0;
+	virtual void OnRecv(const char* buf, size_t len) = 0;
+	virtual void OnConnected() = 0;
 	bool ConnectOk(const Proto::ShareMemory &sm);
 private:
 	void BeDisconnect();

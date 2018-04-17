@@ -24,8 +24,8 @@ public:
 	Ocsc();
 
 private:
-	virtual void on_recv(const MsgPack &msg) override;
-	virtual void on_connected() override;
+	virtual void OnRecv(const MsgPack &msg) override;
+	virtual void OnConnected() override;
 	virtual void onDisconnected() override;
 
 	OuterChannelServer *FindChannel();
