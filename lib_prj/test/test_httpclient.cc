@@ -98,8 +98,13 @@ namespace
 	{
 	private:
 		virtual void Reply(const char *str) override
+		{//json格式字符串
+			LOG_DEBUG("rev:%s", str);
+			
+		}
+		virtual void ReplyError(int err_code, const char *err_str) override
 		{
-
+			LOG_DEBUG("rev error %d:%s", err_code, err_str);
 		}
 	};
 } //end namespace
@@ -114,19 +119,27 @@ void test_etcd()
 	LOG_DEBUG("start test_etcd");
 	LibEventMgr::Instance().Init();
 
-	//EtcdClient *p = MyClient::Create<EtcdClient>();
+	EtcdClient *p = MyClient::Create<EtcdClient>();
 	////为etcd存储的键赋值 
 	////$ curl -X PUT http://127.0.0.1:2379/v2/keys/message -d value="Hello"
-	//char *data = R"value="Hello"";
-	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_PUT, 5, data);
+	//const char *data = "value=\"Hello\"";
+	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_PUT, 5, data);	 //这样不行
+	//p->Request("http://127.0.0.1:2379/v2/keys/message?value=Hello", EVHTTP_REQ_PUT, 5);
 
-	////查询etcd某个键存储的值
+
+
+	////查询etcd某个键存储的值  curl http://127.0.0.1:2379/v2/keys/message
 	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_GET);
 	////删除一个值
 	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_DELETE);
 	////自动在目录下创建有序键
-	//data = R"value=Job1";
-	//p->Request("http://127.0.0.1:2379/v2/keys/queue", EVHTTP_REQ_POST);
+	//p->Request("http://127.0.0.1:2379/v2/keys/queue?value=Job1", EVHTTP_REQ_POST);
+
+	//Watching the directory  curl http://127.0.0.1:2379/v2/keys/message?wait=true\&recursive=true
+	//p->Request("http://127.0.0.1:2379/v2/keys/message?wait=true&recursive=true", EVHTTP_REQ_GET, 3600*24);
+
+	//Test and set  可以做锁  curl -X PUT http://127.0.0.1:2379/v2/keys/message?prevValue=Hello -d value=Hi
+	p->Request("http://127.0.0.1:2379/v2/keys/message?prevValue=123&value=Hi", EVHTTP_REQ_PUT, 5);
 
 	LibEventMgr::Instance().dispatch();
 
