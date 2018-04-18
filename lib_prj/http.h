@@ -53,15 +53,23 @@ private:
 
 };
 
+
 class BaseHttpClient
 {
 public:
 	BaseHttpClient();
 	virtual ~BaseHttpClient();
 
-	bool Request(const char *url, evhttp_cmd_type cmd_type = EVHTTP_REQ_GET, unsigned int ot_sec = 30, const char *post_data=nullptr);
+	bool Request(const char *url, evhttp_cmd_type cmd_type = EVHTTP_REQ_GET, unsigned int ot_sec = 30, const char *post_data = nullptr);
 
 	//分配一个对象使用，连接结束会自动释放。用户代码不需要写释放语句
+	//另外Request失败也会释放对象.
+	//建议写法： BaseHttpClient::Create<MyClient>().Request(..);
+	//或者:
+	//{
+	// MyClient *p =  BaseHttpClient::Create<MyClient>();
+	// p->Init(); p->Request();
+	//}//目的不让p漏出去导致野指针
 	template<class MyClient>
 	static MyClient *Create()
 	{
@@ -85,5 +93,5 @@ private:
 private:
 	struct evdns_base* m_dnsbase;
 	struct evhttp_connection* m_connection;
-
+	bool m_is_request;
 };

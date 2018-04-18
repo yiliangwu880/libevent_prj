@@ -111,6 +111,7 @@ const char *BaseHttpSvr::GetUri()
 BaseHttpClient::BaseHttpClient()
 :m_dnsbase(nullptr)
 , m_connection(nullptr)
+, m_is_request(false)
 {
 
 }
@@ -130,9 +131,16 @@ BaseHttpClient::~BaseHttpClient()
 
 bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned int ot_sec, const char *post_data)
 {
+	if (m_is_request)
+	{
+		ReplyError(500, "repeated Request");
+		delete this;
+		return false;
+	}
 	if (nullptr == url)
 	{
-		LOG_ERROR("nullptr == url");
+		ReplyError(500, "nullptr == url");
+		delete this;
 		return false;
 	}
 
@@ -142,14 +150,16 @@ bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned
 	HttpUriPtr hu(evhttp_uri_parse(url), ::evhttp_uri_free); //自动释放资源
 	if (nullptr == hu.get())
 	{
-		LOG_ERROR("Parse url failed!");
+		ReplyError(500, "Parse url failed! ");
+		delete this;
 		return false;
 	}
 
 	const char* host = evhttp_uri_get_host(hu.get());
 	if (!host)
 	{
-		LOG_ERROR("Parse host failed!");
+		ReplyError(500, "Parse host failed! ");
+		delete this;
 		return false;
 	}
 
@@ -169,14 +179,16 @@ bool BaseHttpClient::Request(const char *url, evhttp_cmd_type cmd_type, unsigned
 	m_dnsbase = evdns_base_new(LibEventMgr::Instance().GetEventBase(), 1);
 	if (!m_dnsbase)
 	{
-		LOG_ERROR("Create dns base failed!");
+		ReplyError(500, "Create dns base failed!");
+		delete this;
 		return false;
 	}
 
 	m_connection = evhttp_connection_base_new(LibEventMgr::Instance().GetEventBase(), m_dnsbase, host, port);
 	if (!m_connection)
 	{
-		LOG_ERROR("Create evhttp connection failed!");
+		ReplyError(500, "Create evhttp connection failed!");
+		delete this;
 		return false;
 	}
 	// 创建连接对象成功后, 设置关闭回调函数

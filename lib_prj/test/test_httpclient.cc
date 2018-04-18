@@ -4,6 +4,7 @@
 #include "../utility/BacktraceInfo.hpp"
 #include "../http.h"
 #include "../utility/misc.h"
+#include "../etcd_client.h"
 
 using namespace std;
 unsigned int get_proc_mem()
@@ -119,27 +120,27 @@ void test_etcd()
 	LOG_DEBUG("start test_etcd");
 	LibEventMgr::Instance().Init();
 
-	EtcdClient *p = MyClient::Create<EtcdClient>();
-	////为etcd存储的键赋值 
+	BaseEtcdClient client;
+	client.Init();
+
 	////$ curl -X PUT http://127.0.0.1:2379/v2/keys/message -d value="Hello"
-	//const char *data = "value=\"Hello\"";
-	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_PUT, 5, data);	 //这样不行
-	//p->Request("http://127.0.0.1:2379/v2/keys/message?value=Hello", EVHTTP_REQ_PUT, 5);
+	//client.Set("message", "my");
+
+	//查询etcd某个键存储的值  curl http://127.0.0.1:2379/v2/keys/message
+	//client.Get("message");
+
+	//client.Del("message");
 
 
+	//自动在目录下创建有序键
+	////curl http://127.0.0.1:2379/v2/keys/queue -XPOST -d value=Job1
+	//client.CreateQueue("queue");
 
-	////查询etcd某个键存储的值  curl http://127.0.0.1:2379/v2/keys/message
-	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_GET);
-	////删除一个值
-	//p->Request("http://127.0.0.1:2379/v2/keys/message", EVHTTP_REQ_DELETE);
-	////自动在目录下创建有序键
-	//p->Request("http://127.0.0.1:2379/v2/keys/queue?value=Job1", EVHTTP_REQ_POST);
+	////Watching the directory  curl http://127.0.0.1:2379/v2/keys/message?wait=true\&recursive=true
+	//client.Watch("message");
 
-	//Watching the directory  curl http://127.0.0.1:2379/v2/keys/message?wait=true\&recursive=true
-	//p->Request("http://127.0.0.1:2379/v2/keys/message?wait=true&recursive=true", EVHTTP_REQ_GET, 3600*24);
-
-	//Test and set  可以做锁  curl -X PUT http://127.0.0.1:2379/v2/keys/message?prevValue=Hello -d value=Hi
-	p->Request("http://127.0.0.1:2379/v2/keys/message?prevValue=123&value=Hi", EVHTTP_REQ_PUT, 5);
+	////Test and set  可以做锁  curl -X PUT http://127.0.0.1:2379/v2/keys/message?prevValue=Hello -d value=Hi
+	client.ConditionSet("message", "my", "123");
 
 	LibEventMgr::Instance().dispatch();
 

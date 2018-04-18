@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib_prj\connector.h" />
+    <ClInclude Include="..\..\lib_prj\etcd_client.h" />
     <ClInclude Include="..\..\lib_prj\http.h" />
     <ClInclude Include="..\..\lib_prj\include_all.h" />
     <ClInclude Include="..\..\lib_prj\lev_mgr.h" />
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib_prj\connector.cc" />
+    <ClCompile Include="..\..\lib_prj\etcd_client.cc" />
     <ClCompile Include="..\..\lib_prj\http.cc" />
     <ClCompile Include="..\..\lib_prj\lev_mgr.cc" />
     <ClCompile Include="..\..\lib_prj\listener.cc" />

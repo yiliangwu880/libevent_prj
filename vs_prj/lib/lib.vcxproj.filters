@@ -39,6 +39,7 @@
     <ClInclude Include="..\..\lib_prj\utility\single_progress.hpp">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib_prj\etcd_client.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib_prj\utility\logFile.cpp">
@@ -67,5 +68,6 @@
     <ClCompile Include="..\..\lib_prj\utility\single_progress.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib_prj\etcd_client.cc" />
   </ItemGroup>
 </Project>
