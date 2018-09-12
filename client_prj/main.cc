@@ -10,10 +10,10 @@ void test_etcd();
 int main(int argc, char* argv[]) 
 {
 	LOG_DEBUG("\n\n");
-	//test_client();
+	test_client();
 	//test_httpclient();
 	//test_mgr_client_base();
-	test_etcd();
+	//test_etcd();
 	return 0;
 }
 
