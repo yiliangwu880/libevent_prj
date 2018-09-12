@@ -12,8 +12,9 @@ SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake")
 INCLUDE(cotire)
 
 # include directories
-INCLUDE_DIRECTORIES(system ../external/include/)
-INCLUDE_DIRECTORIES(system ../lib_prj/)
+INCLUDE_DIRECTORIES(system ./external/include/)
+INCLUDE_DIRECTORIES(system ./libevent-2.1.8-stable/out/include)
+INCLUDE_DIRECTORIES(system ./lib_prj/)
 INCLUDE_DIRECTORIES(after  ${PROJECT_SOURCE_DIR})
 
 #运行cmake输出终端消息，调试可以用
@@ -25,7 +26,8 @@ LINK_DIRECTORIES(
   ${PROJECT_BINARY_DIR}/lib
 
   #项目引用第三方库
-  ${PROJECT_SOURCE_DIR}/external/lib
+ # ${PROJECT_SOURCE_DIR}/external/lib
+  ${PROJECT_SOURCE_DIR}/libevent-2.1.8-stable/out/lib
 
   #系统目录
   /usr/local/lib
@@ -35,12 +37,12 @@ LINK_DIRECTORIES(
 
 #指定编译器
 if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -pthread -DDEBUG -Werror -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall -pthread   -Werror -DDEBUG -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -lrt -pthread -DDEBUG -Werror -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall -lrt -pthread   -Werror -DDEBUG -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
 else( CMAKE_BUILD_TYPE STREQUAL "Release" )
     #set(CMAKE_BUILD_TYPE "Release")
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -DGMPERMISSION -pthread -Werror -Wno-unused-result -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free ")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -O2 -DGMPERMISSION -pthread -Werror -Wno-unused-result -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -lrt -DGMPERMISSION -pthread -Werror -Wno-unused-result -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free ")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -lrt -O2 -DGMPERMISSION -pthread -Werror -Wno-unused-result -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
 endif( CMAKE_BUILD_TYPE STREQUAL "Debug" )
 
 #set(CMAKE_C_COMPILER /usr/bin/gcc)
