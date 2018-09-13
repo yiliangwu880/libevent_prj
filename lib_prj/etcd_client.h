@@ -4,7 +4,7 @@
 #pragma once
 
 #include "http.h"
-#include "utility/config.h" //ÒÆÖ²É¾µô
+#include "utility/logFile.h" //ÒÆÖ²É¾µô
 
 
 

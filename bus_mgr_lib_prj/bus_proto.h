@@ -1,6 +1,6 @@
 //P和mgr通讯协议
 #pragma once
-#include "utility/config.h"
+#include "utility/logFile.h"
 #include <arpa/inet.h>  
 
 #pragma pack(1)

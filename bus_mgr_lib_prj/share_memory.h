@@ -17,7 +17,7 @@ main()
 #include <stdint.h>
 #include <deque>
 #include <memory.h>
-#include "utility/config.h" //目前调试用，移植删掉
+#include "utility/logFile.h" //目前调试用，移植删掉
 #include <memory>
 
 class shmem

@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>  
 #include "include_all.h"
-#include "utility/config.h" //目前调试用，移植删掉
+#include "utility/logFile.h" //目前调试用，移植删掉
 #include <memory>
 
 using namespace std;

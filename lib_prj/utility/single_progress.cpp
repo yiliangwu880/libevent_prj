@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <signal.h>
-#include "config.h" //目前调试用，移植删掉
+#include "logFile.h" //目前调试用，移植删掉
 
 file_lock::file_lock(const std::string& file_name)
 :m_fd(-1)

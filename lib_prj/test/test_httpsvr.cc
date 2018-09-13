@@ -1,6 +1,6 @@
 
 #include "../include_all.h"
-#include "../utility/config.h" //目前调试用，移植删掉
+#include "../utility/logFile.h" //目前调试用，移植删掉
 #include "../utility/BacktraceInfo.hpp"
 #include "../http.h"
 

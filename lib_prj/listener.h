@@ -16,7 +16,7 @@
 #include "connector.h"
 #include <unistd.h>
 #include <arpa/inet.h>  
-#include "utility/config.h" //目前调试用，移植删掉
+#include "utility/logFile.h" //目前调试用，移植删掉
 
 class ListenerConnector;
 template<class >
