@@ -218,6 +218,7 @@ void BaseConnect::conn_read_callback(bufferevent* bev)
 		//状态2, msg.len完整，等待读取完整消息
 		else 
 		{
+			m_msg.len = htonl(m_msg.len);
 			if (m_msg.len > MAX_MSG_DATA_LEN) //包过大，断开连接
 			{
 				LOG_ERROR("rev msg len too big. %d", m_msg.len);
@@ -301,8 +302,9 @@ bool BaseConnect::send_data(const MsgPack &msg)
 		LOG_ERROR("is disconnect");
 		return false;
 	}
-	const char* data = (const char*)&msg;
+	const char* data = (const char*)&(msg.data);
 	int len = msg.len + sizeof(msg.len);
+	int net_len = htonl((int)msg.len);
 	if (0 == m_fd)
 	{
 		LOG_ERROR("BaseConnect not init. 0 == m_fd");
@@ -331,6 +333,11 @@ bool BaseConnect::send_data(const MsgPack &msg)
 		}
 	}
 
+	if (0 != bufferevent_write(m_buf_e, &net_len, sizeof(net_len)))
+	{
+		LOG_ERROR("bufferevent_write fail, len=%d", len);
+		return false;
+	}
 	if (0 != bufferevent_write(m_buf_e, data, len))
 	{
 		LOG_ERROR("bufferevent_write fail, len=%d", len);
