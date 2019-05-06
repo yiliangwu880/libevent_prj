@@ -47,7 +47,8 @@ bool BaseHttpSvr::Init(unsigned short port/*=80*/, const char* ip /*= nullptr*/)
 		LOG_FATAL("init http fail");
 		return false;
 	}
-	evhttp_set_gencb(m_evhttp, RevRequestCB, this);
+	//evhttp_set_gencb(m_evhttp, RevRequestCB, this);
+	evhttp_set_cb(m_evhttp, "/phoneop/", RevRequestCB, this);
 	return true;
 }
 
