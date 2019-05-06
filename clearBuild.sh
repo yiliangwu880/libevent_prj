@@ -5,7 +5,7 @@
 cd Debug
 rm -rf *
 cd ..
-./build.sh
+sh build.sh
 
 cp restart_server.sh Debug/bin/
 cp restart_client.sh Debug/bin/

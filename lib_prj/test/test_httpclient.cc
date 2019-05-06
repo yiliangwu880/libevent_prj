@@ -69,8 +69,9 @@ namespace
 		{
 			MyClient *p = MyClient::Create<MyClient>();
 			//p->Request("http://192.168.141.196:33433/abc", EVHTTP_REQ_GET, 3);
-			p->Request("http://www.baidu.com", EVHTTP_REQ_GET,5);
+			//p->Request("http://www.baidu.com", EVHTTP_REQ_GET,5);
 			//p->Request("http://com", EVHTTP_REQ_GET, 5);
+			p->Request("http://127.0.0.1:33433/abc", EVHTTP_REQ_GET, 3);
 
 			static int cnt = 0;
 			if (cnt%1000 == 0)

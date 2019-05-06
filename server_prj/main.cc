@@ -10,8 +10,8 @@ int main(int argc, char* argv[])
 {
 	LOG_DEBUG("\n\n");
 	//test_server();
-	//test_httpsvr();
-	test_mgr_svr_base();
+	test_httpsvr();
+	//test_mgr_svr_base();
 	return 0;
 }
 
