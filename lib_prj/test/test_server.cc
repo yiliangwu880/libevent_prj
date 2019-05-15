@@ -154,13 +154,35 @@ namespace
 	{
 		SingleProgress::Instance().StopSingle(app_name);
 	}
+
+	void UserSignalCB(int sig_type)
+	{
+		LOG_DEBUG("run UserSignalCB");
+
+	}
+
+
+	void testSignalReg()
+	{
+		CBacktraceInfo::Instance().RegHangUpHandler();
+		LibEventMgr::Instance().Init();
+		LibEventMgr::Instance().RegSignal(SIGUSR2, UserSignalCB);
+		Listener<Connect2ClientFree> listener;
+		listener.Init(server_port);
+		ShowMemoryTimer t;
+		t.StartTimer(1000, 0, true);
+		LibEventMgr::Instance().dispatch();
+
+		LOG_DEBUG("========================end=====================");
+	}
 } //end namespace
 
 void test_server()
 {
 	LOG_DEBUG("start test_server");
-	test1();
+	//test1();
 //	testFree();
+	testSignalReg();
 }
 
 void TestFileLock()
