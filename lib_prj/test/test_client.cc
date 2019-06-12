@@ -8,7 +8,7 @@ using namespace std;
 unsigned int get_proc_mem();
 namespace
 {
-	const uint16 server_port = 33433;
+	const uint16 server_port = 32430;
 	const char *ip = "127.0.0.1";
 	// 获取进程占用内存
 
@@ -373,7 +373,7 @@ namespace
 void test_client()
 {
 	LOG_DEBUG("start test_client");
-	//test1(); 
-	testFree();
+	test1(); 
+	//testFree();
 	//testConnectTimeOut();
 }

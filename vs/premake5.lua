@@ -54,6 +54,7 @@ project "server_prj"
 		"../server_prj/**.cc",
 		"../server_prj/**.h",
 		"../server_prj/**.hpp",
+		"../server_prj/**.txt",
 		"../lib_prj/*.h", 
 	}
     
@@ -70,6 +71,7 @@ project "client_prj"
 		"../client_prj/**.cc",
 		"../client_prj/**.h",
 		"../client_prj/**.hpp",
+		"../client_prj/**.txt",
 		"../lib_prj/*.h", 
 	}
     
@@ -86,6 +88,7 @@ project "bus_mgr_lib_prj"
 		"../bus_mgr_lib_prj/**.cc",
 		"../bus_mgr_lib_prj/**.h",
 		"../bus_mgr_lib_prj/**.hpp",
+		"../bus_mgr_lib_prj/**.txt",
 		"../lib_prj/*.h", 
 	}
     
@@ -102,6 +105,7 @@ project "test_bus_mgr_prj"
 		"../test_bus_mgr_prj/**.cc",
 		"../test_bus_mgr_prj/**.h",
 		"../test_bus_mgr_prj/**.hpp",
+		"../test_bus_mgr_prj/**.txt",
 		"../lib_prj/*.h", 
 	}
     

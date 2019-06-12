@@ -18,6 +18,7 @@
 #include <arpa/inet.h>  
 #include "utility/logFile.h" //目前调试用，移植删掉
 
+
 class ListenerConnector;
 template<class >
 class Listener;
@@ -66,7 +67,7 @@ private:
 
 };
 
-//BaseListener 创建的connector
+//Listener 创建的connector
 class ListenerConnector : public BaseConnect
 {
 public:
@@ -102,17 +103,21 @@ private:
 	virtual void OnConnected() override{};
 };
 
+
+//类 成员只管理 m_listener m_addr， 其他链接管理交给 BaseConnectorMgr处理
+//BaseConnectorMgr 实现分离出去，让Listener做更专注的底层,更简单化。具体管理器让用户选择自定义
+//@para class Connect 必须为 ListenerConnector派生类？
 template<class Connect = NoUseConnector>
 class Listener 
 {
 public:
-	//para cn_mgr 生存期必须比 BaseListener长
+	//para cn_mgr 生存期必须比 Listener长
 	Listener(BaseConnectorMgr &cn_mgr)
 		:m_listener(nullptr)
 		, m_default_cn_mgr()
 		, m_cn_mgr(cn_mgr)
 	{
-		memset(&m_addr, 0, sizeof(m_addr));
+		memset(&m_addr, 0, sizeof(m_addr)); 
 	}
 	Listener()
 		:m_listener(nullptr)

@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>  
 #include "connector.h"
-
 #include "utility/logFile.h" //目前调试用，移植删掉
+#include <signal.h>
 
 using namespace std;
 
@@ -64,6 +64,9 @@ bool LibEventMgr::Init()
 		LOG_ERROR("cannot event_base_new libevent ...\n");
 		return false;
 	}
+	//为了避免进程退出, 可以捕获SIGPIPE信号, 或者忽略它, 给它设置SIG_IGN信号处理函数:
+	//这样, 第二次调用write方法时, 会返回 - 1, 同时errno置为SIGPIPE.程序便能知道对端已经关闭.
+	signal(SIGPIPE, SIG_IGN);
 	return true;
 }
 

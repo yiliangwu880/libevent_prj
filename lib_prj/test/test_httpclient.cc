@@ -37,7 +37,7 @@ unsigned int get_proc_mem()
 
 namespace
 {
-	const uint16 server_port = 33433;
+	const uint16 server_port = 32430;
 
 	class ClientMgr;
 	class MyClient : public BaseHttpClient
@@ -68,10 +68,10 @@ namespace
 		virtual void OnTimer(void *user_data) override
 		{
 			MyClient *p = MyClient::Create<MyClient>();
-			//p->Request("http://192.168.141.196:33433/abc", EVHTTP_REQ_GET, 3);
+			//p->Request("http://192.168.141.196:32430/abc", EVHTTP_REQ_GET, 3);
 			//p->Request("http://www.baidu.com", EVHTTP_REQ_GET,5);
 			//p->Request("http://com", EVHTTP_REQ_GET, 5);
-			p->Request("http://127.0.0.1:33433/abc", EVHTTP_REQ_GET, 3);
+			p->Request("http://127.0.0.1:32430/abc", EVHTTP_REQ_GET, 3);
 
 			static int cnt = 0;
 			if (cnt%1000 == 0)

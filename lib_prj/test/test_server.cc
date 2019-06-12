@@ -15,7 +15,7 @@ namespace
 		msg.len = str.length() + 1;
 		memcpy(msg.data, str.c_str(), str.length() + 1);
 	}
-	const uint16 server_port = 33433;
+	const uint16 server_port = 32430;
 
 	static evutil_socket_t s_fd = 0;
 	class MyTimer : public BaseLeTimer
@@ -40,7 +40,7 @@ namespace
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
 		{
-			//LOG_DEBUG("OnRecv %s", &msg.data);
+			LOG_DEBUG("OnRecv %s", &msg.data);
 			send_data(msg);
 			if (msg.data == string("del"))
 			{//some time do this destory connect
@@ -52,7 +52,7 @@ namespace
 		virtual void OnConnected() override
 		{
 			SetEventCbLog(true);
-			//LOG_DEBUG("server OnConnected");
+			LOG_DEBUG("server OnConnected");
 			MsgPack msg;
 			Str2MsgPack("s", msg);
 			send_data(msg);
@@ -78,6 +78,7 @@ namespace
 
 	void test1()
 	{
+		LOG_DEBUG("test1");
 		CBacktraceInfo::Instance().RegHangUpHandler();
 		LibEventMgr::Instance().Init();
 
@@ -180,9 +181,9 @@ namespace
 void test_server()
 {
 	LOG_DEBUG("start test_server");
-	//test1();
-//	testFree();
-	testSignalReg();
+	test1();
+	//testFree();
+	//testSignalReg();
 }
 
 void TestFileLock()

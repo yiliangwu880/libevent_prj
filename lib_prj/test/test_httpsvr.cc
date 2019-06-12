@@ -8,7 +8,7 @@ using namespace std;
 
 namespace
 {
-	const uint16 server_port = 33433;
+	const uint16 server_port = 32430;
 
 	class MyHttpSvr : public BaseHttpSvr
 	{
