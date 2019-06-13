@@ -68,7 +68,7 @@ private:
 };
 
 //Listener 创建的connector
-class ListenerConnector : public BaseConnect
+class ListenerConnector : public BaseSvrCon
 {
 public:
 	ListenerConnector();

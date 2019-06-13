@@ -77,7 +77,7 @@ private:
 };
 
 //occc = outer channel client connector
-class Occc : public BaseConnect
+class Occc : public BaseClientCon
 {
 public:
 	Occc(OuterChannelClient &channel);

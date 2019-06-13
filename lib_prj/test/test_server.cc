@@ -51,7 +51,7 @@ namespace
 		}
 		virtual void OnConnected() override
 		{
-			SetEventCbLog(true);
+			m_com.SetEventCbLog(true);
 			LOG_DEBUG("server OnConnected");
 			MsgPack msg;
 			Str2MsgPack("s", msg);
@@ -105,7 +105,7 @@ namespace
 		}
 		virtual void OnConnected() override
 		{
-			SetEventCbLog(true);
+			m_com.SetEventCbLog(true);
 		//	LOG_DEBUG("server OnConnected");
 			MsgPack msg;
 			Str2MsgPack("s", msg);

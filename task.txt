@@ -1,1 +1,7 @@
 
+带改善地方：
+1、目录太乱
+2、使用接口不够简洁，比如服务器，有server.init(parals), server.start()搞定
+3、跑不起来
+4、目录命名我也不太喜欢。太长了。bus_mgr_lib_prj 我觉得bus就好
+5、只看到server的例子，没看到连接其他服务的例子

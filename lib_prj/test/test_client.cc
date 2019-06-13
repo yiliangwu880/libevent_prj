@@ -26,7 +26,7 @@ namespace
 
 
 
-	class MyConnectClient1 : public BaseConnect
+	class MyConnectClient1 : public BaseClientCon
 	{
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
@@ -50,7 +50,7 @@ namespace
 
 		}
 	};
-	class MyConnectClient2 : public BaseConnect
+	class MyConnectClient2 : public BaseClientCon
 	{
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
@@ -92,23 +92,23 @@ namespace
 				break;
 			case 0: //长度发一半
 				offset = 0;
-				p->send_data_no_head(pData + offset, 1);
+				p->m_com.send_data_no_head(pData + offset, 1);
 				offset += 1;
 				state = 1;
 				break;
 			case 1://长度完整
-				p->send_data_no_head(pData + offset, 1);
+				p->m_com.send_data_no_head(pData + offset, 1);
 				offset += 1;
 				state = 2;
 				break;
 			case 2://内容发一半
-				p->send_data_no_head(pData + offset, 2);
+				p->m_com.send_data_no_head(pData + offset, 2);
 				offset += 2;
 				state = 3;
 				break;
 			case 3://内容完整+下一个长度一半
-				p->send_data_no_head(pData + offset, 2);
-				p->send_data_no_head(pData, 1);
+				p->m_com.send_data_no_head(pData + offset, 2);
+				p->m_com.send_data_no_head(pData, 1);
 
 				offset = 1;
 				state = 1;
@@ -144,7 +144,7 @@ namespace
 		}
 	}
 
-	class NewDelConnector : public BaseConnect
+	class NewDelConnector : public BaseClientCon
 	{
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
@@ -191,7 +191,7 @@ namespace
 			case START_S:
 				m_client = new NewDelConnector();
 				m_client->ConnectInit(ip, server_port);
-				m_client->SetEventCbLog(true);
+				m_client->m_com.SetEventCbLog(true);
 				m_s = CONNECT_S;
 				//LOG_DEBUG("new client");
 				break;
@@ -205,14 +205,14 @@ namespace
 
 			}
 		}
-		BaseConnect *m_client;
+		BaseClientCon *m_client;
 		State m_s;
 		int cnt;
 	};
 
 
 
-	class MyConnectClientFree : public BaseConnect
+	class MyConnectClientFree : public BaseClientCon
 	{
 	private:
 		virtual void OnRecv(const MsgPack &msg) override
@@ -314,7 +314,7 @@ namespace
 
 
 
-	class MyConnectClientFail : public BaseConnect
+	class MyConnectClientFail : public BaseClientCon
 	{
 	private:
 		virtual void OnRecv(const MsgPack &msg) override

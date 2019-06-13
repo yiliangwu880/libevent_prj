@@ -73,7 +73,7 @@ ListenerConnector::~ListenerConnector()
 bool ListenerConnector::AcceptInit(evutil_socket_t fd, struct sockaddr* sa, const sockaddr_in &svr_addr)
 {
 	m_svr_addr = svr_addr;
-	return BaseConnect::BaseAcceptInit(fd, sa);
+	return BaseSvrCon::AcceptInit(fd, sa);
 }
 
 bool ListenerConnector::FreeSelf()

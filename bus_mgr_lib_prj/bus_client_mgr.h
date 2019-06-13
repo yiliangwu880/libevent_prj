@@ -24,7 +24,7 @@ typedef std::map<sockaddr_in, BusClientConnector *, AddrCompareLess> Addr2BCC;
 
 
 //mc = mgr connector = p 通过socket连接mgr 的connector
-class MgrConnectorClient : public BaseConnect
+class MgrConnectorClient : public BaseClientCon
 {
 public:
 	template<class ResMsg>
