@@ -1,3 +1,6 @@
+
+等废弃， 暂停维护。 以后只维护衍生代码：https://github.com/yiliangwu880/libevent_cpp.git
+
 整个文件夹放到linux目录，安装cmake gcc等。
 
 
